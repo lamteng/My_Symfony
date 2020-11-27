@@ -13,4 +13,5 @@ class CommentController extends AbstractController
         }
         return new JsonResponse(['votes' => $currentVoteController]);
     }
+    
 }
