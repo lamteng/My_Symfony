@@ -13,7 +13,7 @@ class QuestionController extends AbstractController
      */
     public function homepage()
     {
-        return new Response('this is the main page message');
+        return $this->render('question/homepage.html.twig');
     }
      /**
      * @Route("/questions/{slug}")
@@ -25,9 +25,12 @@ class QuestionController extends AbstractController
             'Honestly, I like furry shoes better than MY cat',
             'Maybe.. try saying the spell backwards?',
         ]; 
+
+        //dd($slug, $this);
+
         return $this->render('question/show.html.twig',[
             'question'=> ucwords(str_replace('-',' ',$slug)),
-            'answer'=> $answers,
+            'answers'=> $answers,
         ]);
     }
 }
