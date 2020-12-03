@@ -57,3 +57,8 @@
 </div>
 {% endblock %}
 
+{% block javascript %}
+    {{ parent() }}
+
+    <script src="{{ asset('js/question_show.js') }}"></script>
+{% endblock %}
