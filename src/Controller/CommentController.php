@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class CommentController extends AbstractController
 {
     /**
-     * @Route("/comments/{id}/vote/{direction<up|down>}", methods="POST")
+     * @Route("/comments/{id}/vote/{direction}")
      */
     public function commentVote($id, $direction)
     {
