@@ -12,4 +12,9 @@ $container.find('a').on('click', function (e) {
   }).then(function (data) {
     $container.find('.js-vote-total').text(data.votes);
   });
+ 
 });
+function myFunction() {
+  document.getElementById("demo").innerHTML = "Paragraph changed.";
+  alert(document.getElementsById("js-vote-total"));
+}
