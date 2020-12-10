@@ -35,12 +35,15 @@ class QuestionController extends AbstractController
             'answers'=> $answers,
         ]);
     }
-}
 
-/**
- * @Route("/questions/new)
- */
-public function new()
-{
+    /**
+     * @Route("/questions/new)
+     */
+    public function new()
+    {
     return new Response('ime for some Doctrine magic');
 }
+
+
+}
+
