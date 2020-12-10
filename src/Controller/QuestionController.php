@@ -36,3 +36,11 @@ class QuestionController extends AbstractController
         ]);
     }
 }
+
+/**
+ * @Route("/questions/new)
+ */
+public function new()
+{
+    return new Response('ime for some Doctrine magic');
+}
