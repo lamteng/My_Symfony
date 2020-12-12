@@ -8,6 +8,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class QuestionController extends AbstractController
 {
+
+
     /**
      * @Route("/", name="app_homepage")
      */
@@ -15,6 +17,26 @@ class QuestionController extends AbstractController
     {
         return $this->render('question/homepage.html.twig');
     }
+
+    
+     /**
+     * @Route("/questions/new")
+     */    
+    public function new()
+    {
+        $question = new Question();
+        $question->setName('Missing pants')
+            ->setSlug('missing-pants-'.rand(0,1000))
+            ->setQuestion(<<<EOF
+Hi! So.. I'm having a *weird* day.
+
+Does anyoe have a spell to call your pants back?
+EOF            
+        );
+        return new Response('Time for some Doctrine magic!');
+    }
+
+
      /**
      * @Route("/questions/{slug}", name="app_question_show")
      */
@@ -35,15 +57,6 @@ class QuestionController extends AbstractController
             'answers'=> $answers,
         ]);
     }
-
-    /**
-     * @Route("/questions/new)
-     */
-    public function new()
-    {
-    return new Response('ime for some Doctrine magic');
-}
-
 
 }
 
