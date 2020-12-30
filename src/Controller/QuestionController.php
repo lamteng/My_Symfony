@@ -5,6 +5,8 @@ namespace App\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Doctrine\ORM\EntityManagerInterface;
+use App\Entity\Question;
 
 class QuestionController extends AbstractController
 {
@@ -41,7 +43,8 @@ class QuestionController extends AbstractController
         if (rand(1, 10) > 2) {
             $question->setAskedAt(new \DateTime(sprintf('-%d days', rand(1, 100))));
         }
-
+        
+ 
         $entityManager->persist($question);
         $entityManager->flush();
 
@@ -56,8 +59,10 @@ class QuestionController extends AbstractController
      /**
      * @Route("/questions/{slug}", name="app_question_show")
      */
-    public function show($slug)
+    public function show($slug, EntityManagerInterface $entityManager)
     {
+
+        
         $answers = [
             'Make sure your cat is sitting purefectly still',
             'Honestly, I like furry shoes better than MY cat',
@@ -66,7 +71,7 @@ class QuestionController extends AbstractController
 
         //dd($slug, $this);
         $questionText = 'I\'ve been turned into a cat, any thoughts on how to turn back? While I\'m **adorable**, I don\'t really care for cat food.';
-
+ 
         return $this->render('question/show.html.twig',[
             'question'=> ucwords(str_replace('-',' ',$slug)),
             'questionText' => $questionText,
