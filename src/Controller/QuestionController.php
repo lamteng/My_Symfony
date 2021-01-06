@@ -7,6 +7,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Question;
+use App\Service\MarkdownHelper;
 
 class QuestionController extends AbstractController
 {
@@ -59,22 +60,31 @@ class QuestionController extends AbstractController
      /**
      * @Route("/questions/{slug}", name="app_question_show")
      */
-    public function show($slug, EntityManagerInterface $entityManager)
+    public function show($slug, MarkdownHelper $markdownHelper, EntityManagerInterface $entityManager)
     {
+        $repository = $entityManager->getRepository(Question::class);
+        /** @var Question|null $question */
+        $question = $repository->findOneBy(['slug' => $slug]);
+ 
+        if (!$question){
+            throw $this->createNotFoundException(sprintf('no question found for slug "%s"', $slug));
+        }
 
-        
         $answers = [
             'Make sure your cat is sitting purefectly still',
             'Honestly, I like furry shoes better than MY cat',
             'Maybe.. try saying the spell backwards?',
         ]; 
 
+
         //dd($slug, $this);
-        $questionText = 'I\'ve been turned into a cat, any thoughts on how to turn back? While I\'m **adorable**, I don\'t really care for cat food.';
+        //$questionText = 'I\'ve been turned into a cat, any thoughts on how to turn back? While I\'m **adorable**, I don\'t really care for cat food.';
  
+
         return $this->render('question/show.html.twig',[
-            'question'=> ucwords(str_replace('-',' ',$slug)),
-            'questionText' => $questionText,
+           // 'question'=> ucwords(str_replace('-',' ',$slug)),
+            'question'=> $question,
+           // 'questionText' => $questionText,
             'answers'=> $answers,
         ]);
     }
